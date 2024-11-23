@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons"; // Biblioteca de ícones
+
 
 const AdicionaProdutoScreen = () => {
   const router = useRouter();
@@ -23,9 +25,15 @@ const AdicionaProdutoScreen = () => {
     router.push("/home");
   };
 
+  const handleahome = () => router.push('/home');
+  const handlealocal = () => router.push('/adicionarLocal');
+  const handleaPerfil = () => router.push('/perfil');
+  const handleaProduto = () => router.push('/adicionap');
+  const handleacategoria = () => router.push('/categoria');
+
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView contentContainerStyle={styles.scrollContent} style={styles.scrollView}>
         <View>
           <View style={styles.fieldContainer}>
             <Text style={styles.label}>Nome</Text>
@@ -105,16 +113,35 @@ const AdicionaProdutoScreen = () => {
         </View>
       </ScrollView>
 
-      {/* Barra de Navegação */}
-      <View style={styles.navBar}>
-        <TouchableOpacity onPress={() => router.push("/home")}>
-          <Text style={styles.navItem}>Home</Text>
+      {/* Barra de Navegação no Footer */}
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => router.push("/")} // Navega para a tela inicial
+        >
+          <Ionicons name="log-out-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("/adicionap")}>
-          <Text style={styles.navItem}>Adicionar P</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={handleahome}>
+          <Ionicons name="home-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("/perfil")}>
-          <Text style={styles.navItem}>Perfil</Text>
+
+        <TouchableOpacity style={styles.footerButton} onPress={handleaProduto}>
+          <Ionicons name="add-circle-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={handleacategoria}>
+          <Ionicons name="grid-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={handlealocal}>
+          <Ionicons name="map-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={handleaPerfil}>
+          <Ionicons name="person-circle-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -129,6 +156,10 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     padding: 20,
+    paddingBottom: 100, // Adicionando padding para garantir espaço suficiente para a barra de navegação
+  },
+  scrollView: {
+    flex: 1,
   },
   fieldContainer: {
     marginBottom: 15,
@@ -160,17 +191,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  navBar: {
+  footer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    backgroundColor: "#eee",
-    padding: 10,
+    alignItems: "center",
+    backgroundColor: "#fff",
+    paddingVertical: 10,
     borderTopWidth: 1,
-    borderColor: "#ccc",
+    borderTopColor: "#ddd",
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
   },
-  navItem: {
-    fontSize: 16,
-    color: "#007BFF",
+  footerButton: {
+    alignItems: "center",
+    padding: 10,
+  },
+  footerText: {
+    fontSize: 14,
+    color: "#333",
+    marginTop: 5,
   },
 });
 

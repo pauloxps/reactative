@@ -10,6 +10,45 @@ const ProfileScreen = () => {
     // Navega para a tela de edição de perfil
     router.push("/editarPerfil");
   };
+  const handleSubmit = () => {
+    if (!email || !senha || !nomeCompleto || !usuario) {
+      Alert.alert("Erro", "Por favor, preencha todos os campos!");
+      return;
+    }
+
+    // Aqui você pode processar os dados do formulário de cadastro
+    Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
+    router.push("/home"); // Navega para a página inicial após o cadastro
+  };
+
+  const handleahome = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/home'); // Navega para a tela home
+  };
+
+  const handlealocal = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/adicionarLocal'); // Navega para a tela home
+  };
+
+  const handleaPerfil = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/editarPerfil'); // Navega para a tela home
+  };
+
+  const handleaProduto = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/adicionap'); // Navega para a tela home
+  };
+  const handleacategoria = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/categoria'); // Navega para a tela home
+  };
 
   return (
     <View style={styles.container}>
@@ -41,27 +80,39 @@ const ProfileScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Barra de Navegação no Footer */}
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.footerButton}
-          onPress={() => router.push("/")} // Navega para a tela inicial
-        >
-          <Ionicons name="home-outline" size={24} color="#333" />
-          <Text style={styles.footerText}>Início</Text>
+     {/* Barra de Navegação no Footer */}
+     <View style={styles.footer}>
+       <TouchableOpacity
+    style={styles.footerButton}
+    onPress={() => router.push("/")} // Navega para a tela inicial
+  >
+          <Ionicons name="log-out-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
-          <Ionicons name="ios-list-outline" size={24} color="#333" />
-          <Text style={styles.footerText}>Home</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={handleahome}>
+            <Ionicons name="home-outline" size={18} color="#333" />
+            <Text style={styles.footerText}></Text>
+          </TouchableOpacity>
+
+        <TouchableOpacity style={styles.footerButton} onPress={handleaProduto}>
+          <Ionicons name="add-circle-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
-          <Ionicons name="map-outline" size={24} color="#333" />
-          <Text style={styles.footerText}>Local</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={handleacategoria}>
+          <Ionicons name="grid-outline" size={18} color="#333" />
+        <Text style={styles.footerText}></Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.footerButton} onPress={handlealocal}>
+          <Ionicons name="map-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
-          <Ionicons name="add-circle-outline" size={24} color="#333" />
-          <Text style={styles.footerText}>Adicionar Categoria</Text>
-        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={handleaPerfil}>
+        <Ionicons name="person-circle-outline" size={18} color="#333" />
+        <Text style={styles.footerText}></Text>
+      </TouchableOpacity>
+    
+
+
       </View>
     </View>
   );

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Modal } from "react-native";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons"; // Biblioteca de ícones
+
 
 const AdicionaProdutoScreen = () => {
   const router = useRouter();
@@ -21,6 +23,34 @@ const AdicionaProdutoScreen = () => {
     // Aqui você pode processar as informações do formulário
     Alert.alert("Sucesso", "Produto adicionado com sucesso!");
     router.push("/home"); // Navega para a página inicial
+  };
+  const handleahome = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/home'); // Navega para a tela home
+  };
+
+  const handlealocal = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/adicionarLocal'); // Navega para a tela home
+  };
+
+  const handleaPerfil = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/perfil'); // Navega para a tela home
+  };
+
+  const handleaProduto = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/adicionap'); // Navega para a tela home
+  };
+  const handleacategoria = () => {
+    // Aqui você pode adicionar validações de login, se necessário
+    // Depois que o login for bem-sucedido, você pode navegar para a home
+    router.push('/categoria'); // Navega para a tela home
   };
 
   return (
@@ -121,17 +151,39 @@ const AdicionaProdutoScreen = () => {
         </View>
       </Modal>
 
-      {/* Barra de Navegação */}
-      <View style={styles.navBar}>
-        <TouchableOpacity onPress={() => router.push("/home")}>
-          <Text style={styles.navItem}>Home</Text>
+      {/* Barra de Navegação no Footer */}
+      <View style={styles.footer}>
+       <TouchableOpacity
+    style={styles.footerButton}
+    onPress={() => router.push("/")} // Navega para a tela inicial
+  >
+          <Ionicons name="log-out-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("/adicionarLocal")}>
-          <Text style={styles.navItem}>Adicionar Local</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={handleahome}>
+            <Ionicons name="home-outline" size={18} color="#333" />
+            <Text style={styles.footerText}></Text>
+          </TouchableOpacity>
+
+        <TouchableOpacity style={styles.footerButton} onPress={handleaProduto}>
+          <Ionicons name="add-circle-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("/perfil")}>
-          <Text style={styles.navItem}>Perfil</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={handleacategoria}>
+          <Ionicons name="grid-outline" size={18} color="#333" />
+        <Text style={styles.footerText}></Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.footerButton} onPress={handlealocal}>
+          <Ionicons name="map-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={handleaPerfil}>
+        <Ionicons name="person-circle-outline" size={18} color="#333" />
+        <Text style={styles.footerText}></Text>
+      </TouchableOpacity>
+    
+
+
       </View>
     </View>
   );
@@ -148,7 +200,7 @@ const styles = StyleSheet.create({
   },
   fieldContainer: {
     marginBottom: 15,
-    //teste
+    //testessss
   },
   label: {
     fontSize: 16,
@@ -240,6 +292,27 @@ const styles = StyleSheet.create({
   closeButtonText: {
     color: "#fff",
     fontSize: 18,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+  },
+  footerButton: {
+    alignItems: "center",
+    padding: 10,
+  },
+  footerText: {
+    fontSize: 14,
+    color: "#333",
+    marginTop: 5,
   },
 });
 

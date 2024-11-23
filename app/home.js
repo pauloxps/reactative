@@ -1,32 +1,19 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router"; // Importa o useRouter
+import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 const HomeScreen = () => {
-  const router = useRouter(); // Hook para navegação
-  
-  const handleLogins = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/adicionarLocal'); // Navega para a tela home
-  };
-  const handleaP = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/adicionap'); // Navega para a tela home
-  };
-  const handleaCategoria = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/categoria'); // Navega para a tela home
-  };
-  const handleaPerfil = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/perfil'); // Navega para a tela home
-  };
+  const router = useRouter();
 
+  // Funções de navegação
+  const handleahome = () => router.push('/home');
+  const handlealocal = () => router.push('/adicionarLocal');
+  const handleaPerfil = () => router.push('/perfil');
+  const handleaProduto = () => router.push('/adicionap');
+  const handleacategoria = () => router.push('/categoria');
 
+  // Dados dos produtos
   const products = [
     {
       name: "Abacate Paulista",
@@ -38,36 +25,37 @@ const HomeScreen = () => {
     {
       name: "Banana Prata",
       location: "Minas Gerais",
-      usuario: "Pauloxps",
       price: "R$ 3,00",
+      usuario: "Pauloxps",
       imageUrl: require("../assets/imagem/gg.png"),
     },
     {
       name: "Coco",
       location: "Espírito Santo",
-      usuario: "Pauloxps",
       price: "R$ 7,00",
+      usuario: "Pauloxps",
       imageUrl: require("../assets/imagem/gg.png"),
     },
     {
       name: "Uva",
       location: "São Paulo",
-      usuario: "Pauloxps",
       price: "R$ 10,00",
+      usuario: "Pauloxps",
       imageUrl: require("../assets/imagem/gg.png"),
     },
     {
       name: "Melancia",
       location: "Bahia",
-      usuario: "Pauloxps",
       price: "R$ 8,00",
+      usuario: "Pauloxps",
       imageUrl: require("../assets/imagem/gg.png"),
     },
+    // Outros produtos...
   ];
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
         {products.map((product, index) => (
           <View key={index} style={styles.productContainer}>
             <Image source={product.imageUrl} style={styles.productImage} />
@@ -81,29 +69,31 @@ const HomeScreen = () => {
         ))}
       </ScrollView>
 
-      {/* Barra de Navegação no Footer */}
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.footerButton}
-          onPress={() => router.push("/")} // Navega para a tela index.js
-        >
-          <Text style={styles.footerText}>Início</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={() => router.push("/")}>
+          <Ionicons name="log-out-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
-          <Text style={styles.footerText}>Home</Text>
+
+        <TouchableOpacity style={styles.footerButton} onPress={handleahome}>
+          <Ionicons name="home-outline" size={18} color="#333" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton} onPress={handleaP}>
-          <Text style={styles.footerText}>adicionaPr</Text>
+
+        <TouchableOpacity style={styles.footerButton} onPress={handleaProduto}>
+          <Ionicons name="add-circle-outline" size={18} color="#333" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleLogins}>
-            <Text style={styles.buttonText}>Local</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleaCategoria}>
-            <Text style={styles.buttonText}>Categoria</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleaPerfil}>
-            <Text style={styles.buttonText}>Perfil</Text>
-          </TouchableOpacity>
+
+        <TouchableOpacity style={styles.footerButton} onPress={handleacategoria}>
+          <Ionicons name="grid-outline" size={18} color="#333" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.footerButton} onPress={handlealocal}>
+          <Ionicons name="map-outline" size={18} color="#333" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.footerButton} onPress={handleaPerfil}>
+          <Ionicons name="person-circle-outline" size={18} color="#333" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -116,7 +106,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   scrollView: {
-    marginTop: 20,
+    flexGrow: 1, // Garante que a rolagem ocupe o espaço restante
+    paddingBottom: 80, // Adiciona espaço extra para não sobrepor os itens ao rodapé
   },
   productContainer: {
     flexDirection: "row",
@@ -135,7 +126,6 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 8,
     marginRight: 10,
-    marginLeft: 40,
   },
   productInfo: {
     flex: 1,
@@ -172,13 +162,18 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderTopWidth: 1,
     borderTopColor: "#ddd",
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
   },
   footerButton: {
+    alignItems: "center",
     padding: 10,
   },
   footerText: {
     fontSize: 14,
     color: "#333",
+    marginTop: 5,
   },
 });
 

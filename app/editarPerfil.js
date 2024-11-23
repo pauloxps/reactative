@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView, Alert } from "react-native";
 import { useRouter } from "expo-router"; // Importa o useRouter
 import { Ionicons } from "@expo/vector-icons"; // Biblioteca de ícones
-
 
 const EditarPerfilScreen = () => {
   const router = useRouter(); // Hook para navegação
@@ -14,40 +13,42 @@ const EditarPerfilScreen = () => {
   const [telefone, setTelefone] = useState("(99) 99999-9999");
 
   const handleSalvar = () => {
-    alert("Perfil atualizado com sucesso!");
+    Alert.alert("Perfil atualizado com sucesso!");
+  };
+
+  const handleSubmit = () => {
+    if (!email || !senha || !nome || !cpf) {
+      Alert.alert("Erro", "Por favor, preencha todos os campos!");
+      return;
+    }
+
+    Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
+    router.push("/home"); // Navega para a página inicial após o cadastro
   };
 
   const handleahome = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
     router.push('/home'); // Navega para a tela home
   };
 
   const handlealocal = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/adicionarLocal'); // Navega para a tela home
+    router.push('/adicionarLocal'); // Navega para a tela adicionar local
   };
 
   const handleaPerfil = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/editarPerfil'); // Navega para a tela home
+    router.push('/editarPerfil'); // Navega para a tela editar perfil
   };
 
   const handleaProduto = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/adicionap'); // Navega para a tela home
+    router.push('/adicionap'); // Navega para a tela adicionar produto
   };
+
   const handleacategoria = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/categoria'); // Navega para a tela home
+    router.push('/categoria'); // Navega para a tela categoria
   };
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
         {/* Topo com a foto e nome */}
         <View style={styles.header}>
           <Image source={require("../assets/imagem/foto.png")} style={styles.foto} />
@@ -86,27 +87,23 @@ const EditarPerfilScreen = () => {
 
       {/* Barra de Navegação no Footer */}
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.footerButton}
-          onPress={() => router.push("/")} // Navega para a tela inicial
-        >
-          <Ionicons name="home-outline" size={24} color="#333" />
-          <Text style={styles.footerText}>Início</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={() => router.push("/")}>
+          <Ionicons name="log-out-outline" size={18} color="#333" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
-          <Ionicons name="ios-list-outline" size={24} color="#333" />
-          <Text style={styles.footerText}>Home</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={handleahome}>
+          <Ionicons name="home-outline" size={18} color="#333" />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.footerButton}
-          onPress={() => router.push("/adicionarLocal")} // Navega para a tela adicionarLocal
-        >
-          <Ionicons name="map-outline" size={24} color="#333" />
-          <Text style={styles.footerText}>Local</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={handleaProduto}>
+          <Ionicons name="add-circle-outline" size={18} color="#333" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
-          <Ionicons name="add-circle-outline" size={24} color="#333" />
-          <Text style={styles.footerText}>Adicionar Categoria</Text>
+        <TouchableOpacity style={styles.footerButton} onPress={handleacategoria}>
+          <Ionicons name="grid-outline" size={18} color="#333" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={handlealocal}>
+          <Ionicons name="map-outline" size={18} color="#333" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={handleaPerfil}>
+          <Ionicons name="person-circle-outline" size={18} color="#333" />
         </TouchableOpacity>
       </View>
     </View>
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   scrollView: {
-    marginTop: 20,
+    flexGrow: 1, // Faz com que o ScrollView tenha o tamanho total
   },
   header: {
     height: 250,
@@ -142,6 +139,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 20,
+    paddingBottom: 100, // Adiciona um espaço extra na parte inferior para não cobrir o conteúdo
   },
   inputContainer: {
     marginBottom: 15,

@@ -38,7 +38,7 @@ const CadastroScreen = () => {
   const handleaPerfil = () => {
     // Aqui você pode adicionar validações de login, se necessário
     // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/editarPerfil'); // Navega para a tela home
+    router.push('/perfil'); // Navega para a tela home
   };
 
   const handleaProduto = () => {
@@ -124,14 +124,14 @@ const CadastroScreen = () => {
           <Ionicons name="add-circle-outline" size={18} color="#333" />
           <Text style={styles.footerText}></Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton} onPress={handlealocal}>
-          <Ionicons name="map-outline" size={18} color="#333" />
-          <Text style={styles.footerText}></Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.footerButton} onPress={handleacategoria}>
           <Ionicons name="grid-outline" size={18} color="#333" />
         <Text style={styles.footerText}></Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.footerButton} onPress={handlealocal}>
+          <Ionicons name="map-outline" size={18} color="#333" />
+          <Text style={styles.footerText}></Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.footerButton} onPress={handleaPerfil}>
         <Ionicons name="person-circle-outline" size={18} color="#333" />
         <Text style={styles.footerText}></Text>

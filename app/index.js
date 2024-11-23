@@ -1,20 +1,46 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { useRouter } from "expo-router"; // Importa o useRouter do expo-router
+import { useRouter } from "expo-router";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const router = useRouter(); // Inicializa o useRouter
+  const [email, setEmail] = useState(""); // Estado para armazenar o e-mail
+  const [senha, setSenha] = useState(""); // Estado para armazenar a senha
+  const router = useRouter(); // Inicializa o useRouter para navegação
 
   const handleLogin = () => {
-    // Aqui você pode adicionar validações de login, se necessário
-    // Depois que o login for bem-sucedido, você pode navegar para a home
-    router.push('/home'); // Navega para a tela home
+    // Realiza a autenticação com a API
+    fetch("https://dummyjson.com/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: email, // Passa o e-mail como 'username'
+        password: senha, // Passa a senha
+        expiresInMins: 30, // Token válido por 30 minutos
+      }),
+      credentials: "include", // Inclui cookies (ex: accessToken)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          // Se o login for bem-sucedido, redireciona para a tela principal
+          console.log("Login bem-sucedido. Token:", data.accessToken);
+          // Armazenar o token ou utilizar conforme necessário
+          router.push("/home"); // Redireciona para a tela de Home
+        } else {
+          // Se as credenciais forem inválidas, exibe um erro
+          alert("Credenciais inválidas. Tente novamente.");
+        }
+      })
+      .catch((error) => {
+        console.error("Erro de login:", error);
+        alert("Ocorreu um erro. Tente novamente.");
+      });
   };
 
   const handleCadastro = () => {
-    router.push('/cadastro'); // Navega para a tela de cadastro
+    router.push("/cadastro"); // Navega para a tela de cadastro
   };
 
   return (
@@ -79,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: "center", // Garante que o conteúdo dentro do container também seja centralizado
   },
   circleImage: {
-    width: 100,  // Tamanho da imagem
+    width: 100, // Tamanho da imagem
     height: 100, // Tamanho da imagem
     borderRadius: 50, // Tornando a imagem circular
     marginBottom: 20, // Espaço entre a imagem e o título
@@ -113,7 +139,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  // Estilo para o botão de cadastro
   registerButton: {
     marginTop: 15,
     width: "100%",
